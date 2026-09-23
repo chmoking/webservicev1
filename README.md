@@ -24,10 +24,12 @@ python3 -m http.server 8000
 
 ## Recibir las solicitudes
 
-Al inicio de `script.js` hay dos valores de configuración:
+Las solicitudes llegan por correo a través de [FormSubmit](https://formsubmit.co) (gratis, sin cuenta). Al inicio de `script.js`:
 
-- `FORM_ENDPOINT` — URL a la que se envían las solicitudes por `POST` en formato JSON (por ejemplo, un formulario de [Formspree](https://formspree.io), Getform, o un endpoint propio). Si está vacío, el formulario abre el cliente de correo del visitante con la solicitud ya redactada.
-- `CONTACT_EMAIL` — correo de contacto de AgroAyuda (también aparece en el pie de página de `index.html`).
+- `CONTACT_EMAIL` — correo que recibe las solicitudes (también aparece en el pie de página de `index.html`).
+- `FORM_ENDPOINT` — URL a la que se envían las solicitudes por `POST` en JSON. Por defecto es FormSubmit apuntando a `CONTACT_EMAIL`; puede cambiarse por Formspree u otro servicio. Si se deja vacío, el formulario abre el cliente de correo del visitante con la solicitud ya redactada.
+
+**Activación:** la primera solicitud que se envíe desde la página publicada hace que FormSubmit mande un correo con un enlace "Activate Form" a `CONTACT_EMAIL`. Hay que pulsarlo una vez; a partir de ahí cada solicitud llega como un correo con los datos en una tabla.
 
 Campos enviados: `name`, `email`, `phone`, `farm`, `date`, `time`, `mode`, `message`.
 
@@ -37,6 +39,10 @@ Campos enviados: `name`, `email`, `phone`, `farm`, `date`, `time`, `mode`, `mess
 - **Días hábiles:** el formulario acepta de lunes a viernes, a partir del día siguiente (ver `validators.date` en `script.js`).
 - **Colores:** variables CSS en `:root` al inicio de `styles.css`.
 
-## Publicar
+## Publicar (GitHub Pages)
 
-Al ser un sitio estático puede publicarse tal cual en GitHub Pages, Netlify, Vercel o cualquier hosting de archivos.
+1. En GitHub: **Settings → Pages**.
+2. En *Build and deployment*, **Source: Deploy from a branch**.
+3. Elige la rama `claude/agroayuda-landing-page-gbwjw4` y la carpeta `/ (root)`, y pulsa **Save**.
+
+En uno o dos minutos la página queda en `https://chmoking.github.io/webservicev1/`. Cada push a esa rama la actualiza. También puede publicarse tal cual en Netlify, Vercel o cualquier hosting estático.

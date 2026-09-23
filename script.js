@@ -1,13 +1,15 @@
 /**
  * Configuración del formulario.
  *
- * FORM_ENDPOINT: URL que recibe las solicitudes vía POST (por ejemplo, un
- * formulario de Formspree: "https://formspree.io/f/xxxxxxx").
+ * CONTACT_EMAIL: correo que recibe las solicitudes de reunión.
+ * FORM_ENDPOINT: URL que recibe las solicitudes vía POST en JSON. Por defecto
+ * usa FormSubmit, que reenvía cada solicitud a CONTACT_EMAIL (la primera
+ * solicitud dispara un correo de activación que hay que confirmar).
  * Si se deja vacío, el formulario abre el cliente de correo del visitante
  * con la solicitud ya redactada y dirigida a CONTACT_EMAIL.
  */
-const FORM_ENDPOINT = "";
-const CONTACT_EMAIL = "contacto@agroayuda.com";
+const CONTACT_EMAIL = "chrismontalvovera@gmail.com";
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
 
 const form = document.getElementById("booking-form");
 const success = document.getElementById("booking-success");
@@ -15,6 +17,7 @@ const successDetail = document.getElementById("success-detail");
 const resetButton = document.getElementById("booking-reset");
 const submitButton = form.querySelector('button[type="submit"]');
 const dateInput = document.getElementById("date");
+const formError = document.getElementById("form-error");
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -123,9 +126,17 @@ async function sendRequest(data) {
   const response = await fetch(FORM_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      ...data,
+      date: formatDate(data.date),
+      _subject: `Nueva solicitud de reunión — ${data.name}`,
+      _template: "table",
+    }),
   });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || String(result.success) === "false") {
+    throw new Error(result.message || `HTTP ${response.status}`);
+  }
 }
 
 form.addEventListener("submit", async (event) => {
@@ -133,6 +144,7 @@ form.addEventListener("submit", async (event) => {
   if (!validateForm()) return;
 
   const data = Object.fromEntries(new FormData(form));
+  formError.hidden = true;
   submitButton.disabled = true;
   submitButton.textContent = "Enviando…";
 
@@ -145,9 +157,8 @@ form.addEventListener("submit", async (event) => {
     success.hidden = false;
     success.focus();
   } catch (error) {
-    alert(
-      `No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos a ${CONTACT_EMAIL}.`
-    );
+    formError.textContent = `No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos a ${CONTACT_EMAIL}.`;
+    formError.hidden = false;
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = "Agendar reunión";
@@ -157,6 +168,7 @@ form.addEventListener("submit", async (event) => {
 resetButton.addEventListener("click", () => {
   form.reset();
   for (const name of Object.keys(validators)) showError(name, "");
+  formError.hidden = true;
   success.hidden = true;
   form.hidden = false;
   form.elements.name.focus();
