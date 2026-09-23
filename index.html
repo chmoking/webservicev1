@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroAyuda — Agenda una reunión</title>
+  <meta name="description" content="AgroAyuda acompaña a productores agropecuarios. Agenda una reunión con nuestro equipo.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo" aria-label="AgroAyuda, inicio">
+        <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8"/>
+          <path d="M16 25V13m0 0c0-4 3-7 7-7 0 4-3 7-7 7Zm0 4c0-3.5-2.5-6-6-6 0 3.5 2.5 6 6 6Z"/>
+        </svg>
+        <span>AgroAyuda</span>
+      </a>
+      <a href="#agendar" class="btn btn-ghost">Agendar reunión</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Asesoría agropecuaria</p>
+          <h1>Hablemos de cómo hacer crecer tu campo.</h1>
+          <p class="lead">
+            Agenda una reunión de 30 minutos, sin costo, con nuestro equipo.
+            Escuchamos tu operación y te proponemos los siguientes pasos.
+          </p>
+
+          <ul class="points">
+            <li>
+              <span class="point-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+              </span>
+              <div>
+                <strong>30 minutos</strong>
+                <span>Presencial o por videollamada.</span>
+              </div>
+            </li>
+            <li>
+              <span class="point-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 20v-9m0 0c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6Zm0 3.5C12 11 10 9 7 9c0 3 2 5.5 5 5.5Z"/></svg>
+              </span>
+              <div>
+                <strong>Enfoque práctico</strong>
+                <span>Cultivos, ganadería y gestión del campo.</span>
+              </div>
+            </li>
+            <li>
+              <span class="point-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg>
+              </span>
+              <div>
+                <strong>Sin compromiso</strong>
+                <span>Te confirmamos la cita en menos de 24 horas.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card" id="agendar">
+          <form id="booking-form" class="booking-form" novalidate>
+            <div class="card-head">
+              <h2>Agenda tu reunión</h2>
+              <p>Completa tus datos y elige un horario.</p>
+            </div>
+
+            <div class="field">
+              <label for="name">Nombre completo</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+              <p class="error" data-for="name"></p>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="email">Correo electrónico</label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+                <p class="error" data-for="email"></p>
+              </div>
+              <div class="field">
+                <label for="phone">Teléfono</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+                <p class="error" data-for="phone"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="farm">Empresa o finca <span class="optional">(opcional)</span></label>
+              <input id="farm" name="farm" type="text" autocomplete="organization">
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="date">Fecha</label>
+                <input id="date" name="date" type="date" required>
+                <p class="error" data-for="date"></p>
+              </div>
+              <div class="field">
+                <label for="time">Hora</label>
+                <select id="time" name="time" required>
+                  <option value="" disabled selected>Selecciona</option>
+                  <option>09:00</option>
+                  <option>10:00</option>
+                  <option>11:00</option>
+                  <option>12:00</option>
+                  <option>14:00</option>
+                  <option>15:00</option>
+                  <option>16:00</option>
+                  <option>17:00</option>
+                </select>
+                <p class="error" data-for="time"></p>
+              </div>
+            </div>
+
+            <fieldset class="field">
+              <legend>Modalidad</legend>
+              <div class="segmented">
+                <label>
+                  <input type="radio" name="mode" value="Videollamada" checked>
+                  <span>Videollamada</span>
+                </label>
+                <label>
+                  <input type="radio" name="mode" value="Presencial">
+                  <span>Presencial</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="field">
+              <label for="message">¿De qué te gustaría hablar? <span class="optional">(opcional)</span></label>
+              <textarea id="message" name="message" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Agendar reunión</button>
+            <p class="form-note">Solo usaremos tus datos para confirmar la reunión.</p>
+          </form>
+
+          <div class="success" id="booking-success" hidden tabindex="-1">
+            <span class="success-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg>
+            </span>
+            <h2>¡Solicitud recibida!</h2>
+            <p id="success-detail">Te contactaremos pronto para confirmar tu reunión.</p>
+            <button type="button" class="btn btn-ghost" id="booking-reset">Agendar otra reunión</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> AgroAyuda</span>
+      <a href="mailto:contacto@agroayuda.com">contacto@agroayuda.com</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
