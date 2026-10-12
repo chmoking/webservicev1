@@ -46,3 +46,11 @@ Campos enviados: `name`, `email`, `phone`, `farm`, `date`, `time`, `mode`, `mess
 3. Elige la rama `claude/agroayuda-landing-page-gbwjw4` y la carpeta `/ (root)`, y pulsa **Save**.
 
 En uno o dos minutos la página queda en `https://chmoking.github.io/webservicev1/`. Cada push a esa rama la actualiza. También puede publicarse tal cual en Netlify, Vercel o cualquier hosting estático.
+
+## Presentación: Emprendimiento (revisión teórica)
+
+`emprendimiento.html` es una presentación interactiva independiente (una sola página, sin dependencias locales) para una exposición de 8 minutos en 5 secciones, una por integrante.
+
+- **Navegación:** menú superior, flechas `←` `→` o teclas `1`–`5`.
+- **Cronómetro:** botón `8:00` en el menú o tecla `T` para iniciar/pausar.
+- **Nombres:** reemplaza "Integrante 1…5" en las etiquetas de cada sección.
